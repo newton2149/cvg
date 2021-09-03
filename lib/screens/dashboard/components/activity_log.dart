@@ -5,10 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 
 class ActivityLog extends StatelessWidget {
-  const ActivityLog({
-    Key? key,
-  }) : super(key: key);
-
+  final scroll = ScrollController();
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<DataProvider>(context);
@@ -45,15 +42,20 @@ class ActivityLog extends StatelessWidget {
           ),
           Container(
             height: size.height * 0.3,
-            child: ListView.builder(
-              itemBuilder: (context, i) {
-                print(data.activityKeyList);
-                return ListTile(
-                  title: Text(data.activityKeyList[i]),
-                  trailing: Text(data.activityValueList[i].toString()),
-                );
-              },
-              itemCount: data.activityKeyList.length,
+            child: Scrollbar(
+              isAlwaysShown: true,
+              controller: scroll,
+              child: ListView.builder(
+                controller: scroll,
+                itemBuilder: (context, i) {
+                  print(data.activityKeyList);
+                  return ListTile(
+                    title: Text(data.activityKeyList[i]),
+                    trailing: Text(data.activityValueList[i].toString()),
+                  );
+                },
+                itemCount: data.activityKeyList.length,
+              ),
             ),
           )
         ],
