@@ -1,4 +1,5 @@
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/activity_log.dart';
 import 'package:admin/screens/dashboard/components/console_header.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,9 @@ class DashboardScreen extends StatelessWidget {
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context)) Authentication(),
+                      if (Responsive.isMobile(context))
+                        SizedBox(height: defaultPadding),
+                      if (Responsive.isMobile(context)) ActivityLog(),
                     ],
                   ),
                 ),
@@ -40,7 +44,13 @@ class DashboardScreen extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: Authentication(),
+                    child: Column(
+                      children: [
+                        Authentication(),
+                        SizedBox(height: defaultPadding),
+                        ActivityLog(),
+                      ],
+                    ),
                   ),
               ],
             )

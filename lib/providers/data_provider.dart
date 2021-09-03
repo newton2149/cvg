@@ -17,8 +17,19 @@ class DataProvider with ChangeNotifier {
   var action = "";
   var responseKeyList = [];
   var responseValueList = [];
+  var activityKeyList = [];
+  var activityValueList = [];
   Map<String, dynamic> verified = {};
-  Map<String, dynamic> activityLog = {};
+  Map<String, DateTime> activityLog = {};
+  var activity = false;
+  Map<String, String> activityNam = {
+    "HC": "Hard Coding",
+    "SS": "Static Scan",
+    "CA": "Code Analysis",
+    "SES": "Security Scan",
+    "BP": "Best Practice",
+    "CC": "Code Coverage",
+  };
 
   Map get toJsonPublic {
     return {
@@ -76,7 +87,7 @@ class DataProvider with ChangeNotifier {
 
   Future postMethodPublic(String action) async {
     print("Entered PostMethod Public");
-    
+
     // final data = await s.rootBundle.loadString('assets/config.yaml');
     // final mapData = loadYaml(data);
     // print(mapData);
@@ -91,9 +102,14 @@ class DataProvider with ChangeNotifier {
         Uri.parse("https://reqres.in/api/users?page=2"),
         // body: jsonEncode(json),
       );
-      print("sa");
+
       if (response.statusCode == 200) {
         this.item = jsonDecode(response.body);
+        final String? keyAction = activityNam[action];
+
+        activityKeyList.insert(0, keyAction);
+        activityValueList.insert(0, DateTime.now());
+
         listUpdate();
         notifyListeners();
       }
@@ -104,6 +120,13 @@ class DataProvider with ChangeNotifier {
 
   void itemClear() {
     this.item = {};
+    notifyListeners();
+  }
+
+  void activityClear() {
+    this.activityLog = {};
+    this.activityKeyList = [];
+    this.activityValueList = [];
     notifyListeners();
   }
 

@@ -56,7 +56,7 @@ class ConsoleHeader extends StatelessWidget {
                   data.fileSaver(data.item.toString());
                 }
               },
-              child: Text("Download"),
+              child: Text("Download Report"),
             ),
             SizedBox(width: defaultPadding),
             ElevatedButton(
@@ -89,7 +89,7 @@ class ConsoleHeader extends StatelessWidget {
                       });
                 }
               },
-              child: Text("Clear"),
+              child: Text("Clear Console"),
             ),
           ],
         ),
